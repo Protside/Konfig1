@@ -27,6 +27,7 @@ zip. Эмулятор должен работать в режиме CLI.
 
 -------
 read_config(path):
+
 Назначение: Читает конфигурационный XML-файл и извлекает пути к VFS и лог-файлу.
 
 Параметры: path (str): Путь к XML-файлу конфигурации. 
@@ -35,6 +36,7 @@ read_config(path):
 
 -------
 VirtualFileSystem.__init__(self, zip_path): 
+
 Назначение: Инициализирует виртуальную файловую систему из ZIP-архива. 
 
 Параметры: self: Ссылка на экземпляр класса. zip_path (str): Путь к ZIP-архиву, содержащему виртуальную файловую систему. 
@@ -43,6 +45,7 @@ VirtualFileSystem.__init__(self, zip_path):
 
 -------
 VirtualFileSystem.extract_zip(self, zip_path): 
+
 Назначение: Распаковывает ZIP-архив в корневую директорию виртуальной файловой системы. 
 
 Параметры: self: Ссылка на экземпляр класса. zip_path (str): Путь к ZIP-архиву. 
@@ -51,6 +54,7 @@ VirtualFileSystem.extract_zip(self, zip_path):
 
 -------
 VirtualFileSystem.list_directory(self): 
+
 Назначение: Возвращает список файлов и директорий в текущей директории. 
 
 Параметры: self: Ссылка на экземпляр класса. 
@@ -86,6 +90,7 @@ VirtualFileSystem.read_file(self, file_name):
 
 -------
 VirtualFileSystem.move(self, path_A, path_B): 
+
 Назначение: Перемещает файл или директорию. 
 
 Параметры: self: Ссылка на экземпляр класса. path_A (str): Путь к файлу или директории, которую нужно переместить. path_B (str): Путь к новому местоположению. 
@@ -94,6 +99,7 @@ VirtualFileSystem.move(self, path_A, path_B):
 
 -------
 ls(vfs): 
+
 Назначение: Выводит список файлов и директорий в текущей директории VFS. 
 
 Параметры: vfs (VirtualFileSystem): Объект VirtualFileSystem. 
@@ -110,6 +116,7 @@ cd(vfs, path):
 
 -------
 pwd(vfs): 
+
 Назначение: Выводит текущий путь в VFS. 
 
 Параметры: vfs (VirtualFileSystem): Объект VirtualFileSystem. 
@@ -118,6 +125,7 @@ pwd(vfs):
 
 -------
 uptime(): 
+
 Назначение: Возвращает время работы эмулятора. 
 
 Параметры: None 

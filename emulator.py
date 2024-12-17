@@ -3,6 +3,8 @@ import zipfile
 import xml.etree.ElementTree as ET
 import sys
 import time
+from datetime import datetime
+
 
 class ShellEmulator:
     def __init__(self, config_path):
@@ -23,7 +25,7 @@ class ShellEmulator:
             zip_ref.extractall('/tmp/vfs')
 
     def log_action(self, action):
-        self.log_entries.append(action)
+        self.log_entries.append(f"{action} | {datetime.now()}")
 
     def write_log(self):
         root = ET.Element("log")
@@ -50,34 +52,6 @@ class ShellEmulator:
         print("Exiting shell emulator.")
         sys.exit(0)
 
-    def chown(self, owner, filename):
-        print(f"Changed owner of {filename} to {owner}")
-        self.log_action(f"chown {owner} {filename}")
-
-    def head(self, filename, n_rows="10"):
-        filepath = os.path.join('/tmp/vfs' + self.current_directory, filename)
-        if os.path.isfile(filepath):
-            with open(filepath, 'r') as file:
-                for _ in range(int(n_rows)):
-                    line = file.readline()
-                    if not line:
-                        break
-                    print(line, end='')
-            self.log_action(f"head {filename}")
-        else:
-            print(f"head: {filename}: No such file")
-
-    def cp(self, source, destination):
-        src_path = os.path.join('/tmp/vfs' + self.current_directory, source)
-        dest_path = os.path.join('/tmp/vfs' + self.current_directory, destination)
-        if os.path.isfile(src_path):
-            with open(src_path, 'rb') as src_file:
-                with open(dest_path, 'wb') as dest_file:
-                    dest_file.write(src_file.read())
-            self.log_action(f"cp {source} to {destination}")
-        else:
-            print(f"cp: {source}: No such file")
-
     def pwd(self):
         print(self.current_directory)
         self.log_action("pwd")
@@ -102,23 +76,6 @@ class ShellEmulator:
                     print("cd: missing argument")
             elif cmd == "exit":
                 self.exit()
-            elif cmd == "chown":
-                if len(command) == 3:
-                    self.chown(command[1], command[2])
-                else:
-                    print("chown: missing arguments")
-            elif cmd == "head":
-                if len(command) == 2:
-                    self.head(command[1])
-                elif len(command) == 3:
-                    self.head(command[1], command[2])
-                else:
-                    print("head: missing argument")
-            elif cmd == "cp":
-                if len(command) == 3:
-                    self.cp(command[1], command[2])
-                else:
-                    print("cp: missing arguments")
             elif cmd == "pwd":
                 self.pwd()
             elif cmd == "uptime":

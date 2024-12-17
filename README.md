@@ -69,22 +69,9 @@ zip. Эмулятор должен работать в режиме CLI.
 
 ## Пример работы
 
-```bash
-$ ls
-file1.txt
-file2.txt
-subdir
 
-$ cd subdir
-$ pwd
-/subdir
+![image](https://github.com/user-attachments/assets/a003bdc7-e4c9-4cfa-a4e1-8df8c454b007)
 
-$ uptime
-Uptime: 12.34 seconds
-
-$ exit
-Exiting shell emulator.
-```
 
 После завершения работы программы будет создан лог-файл `log.xml` с историей всех выполненных действий.
 
@@ -197,13 +184,23 @@ from emulator import ShellEmulator
 
 class TestShellEmulator(unittest.TestCase):
     def setUp(self):
-        self.emulator = ShellEmulator('config.xml')
+        self.emulator = ShellEmulator('config.toml')
 
     def test_ls(self):
         self.emulator.ls()
 
     def test_cd(self):
         self.emulator.cd('some_directory')
+
+    def test_exit(self):
+        with self.assertRaises(SystemExit):
+            self.emulator.exit()
+
+    def test_pwd(self):
+        self.emulator.pwd()
+
+    def test_uptime(self):
+        self.emulator.uptime()
 
 if __name__ == '__main__':
     unittest.main()
